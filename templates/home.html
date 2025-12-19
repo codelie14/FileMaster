@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Accueil{% endblock %}
+
+{% block content %}
+<div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Bienvenue sur FileMaster</h1>
+    <p class="text-xl text-gray-600">Votre solution tout-en-un pour la manipulation de fichiers</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <div class="text-center mb-4">
+            <i class="fas fa-file-pdf text-red-500 text-4xl mb-3"></i>
+            <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils PDF</h5>
+            <p class="text-gray-600 mb-4">Fusionner, diviser, compresser, convertir, protéger et modifier des fichiers PDF.</p>
+            <a href="{% url 'pdf_tools:pdf_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+                Accéder aux outils PDF
+            </a>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <div class="text-center mb-4">
+            <i class="fas fa-image text-green-500 text-4xl mb-3"></i>
+            <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils Image</h5>
+            <p class="text-gray-600 mb-4">Convertir, redimensionner, compresser, recadrer et ajouter des filigranes aux images.</p>
+            <a href="{% url 'image_tools:image_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+                Accéder aux outils Image
+            </a>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <div class="text-center mb-4">
+            <i class="fas fa-file-word text-blue-500 text-4xl mb-3"></i>
+            <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils Document</h5>
+            <p class="text-gray-600 mb-4">Convertir, fusionner et extraire du texte de documents Word, Excel et autres.</p>
+            <a href="{% url 'document_tools:document_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+                Accéder aux outils Document
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Comment ça marche</h2>
+    <ol class="list-decimal list-inside space-y-2 text-gray-600">
+        <li>Sélectionnez l'outil que vous souhaitez utiliser</li>
+        <li>Téléchargez vos fichiers</li>
+        <li>Configurez les options si nécessaire</li>
+        <li>Traitez vos fichiers</li>
+        <li>Téléchargez les résultats</li>
+    </ol>
+</div>
+{% endblock %}

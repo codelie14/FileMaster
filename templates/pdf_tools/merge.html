@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Fusionner des PDF{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Fusionner des fichiers PDF</h1>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <p class="text-gray-600 mb-6">Sélectionnez plusieurs fichiers PDF pour les combiner en un seul document.</p>
+        
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors duration-300">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                <p class="text-gray-600 mb-4">Glissez-déposez vos fichiers PDF ici</p>
+                <input type="file" name="pdf_files" multiple accept=".pdf" class="hidden" id="fileInput">
+                <label for="fileInput" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded cursor-pointer transition-colors duration-300">
+                    Sélectionner des fichiers
+                </label>
+                <p class="text-gray-500 text-sm mt-2">Vous pouvez sélectionner plusieurs fichiers PDF</p>
+            </div>
+            
+            <div class="flex justify-end">
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded transition-colors duration-300">
+                    <i class="fas fa-object-group mr-2"></i>Fusionner les PDF
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="bg-blue-50 rounded-lg p-4">
+        <h3 class="font-semibold text-blue-800 mb-2"><i class="fas fa-info-circle mr-2"></i>Conseils</h3>
+        <ul class="list-disc list-inside text-blue-700 space-y-1">
+            <li>Les fichiers seront fusionnés dans l'ordre où vous les sélectionnez</li>
+            <li>La taille maximale autorisée par fichier est de 100 Mo</li>
+            <li>Vos fichiers sont automatiquement supprimés après traitement</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

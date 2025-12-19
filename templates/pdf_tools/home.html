@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Outils PDF{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Outils PDF</h1>
+    <p class="text-gray-600">Manipulez vos fichiers PDF facilement avec nos outils gratuits</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+            <i class="fas fa-object-group text-blue-500 text-2xl mr-3"></i>
+            <h3 class="text-xl font-semibold text-gray-800">Fusionner des PDF</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Combinez plusieurs fichiers PDF en un seul document.</p>
+        <a href="{% url 'pdf_tools:merge_pdfs' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+            Fusionner
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+            <i class="fas fa-cut text-red-500 text-2xl mr-3"></i>
+            <h3 class="text-xl font-semibold text-gray-800">Diviser des PDF</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Extrayez des pages spécifiques ou divisez un PDF en plusieurs fichiers.</p>
+        <a href="{% url 'pdf_tools:split_pdf' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+            Diviser
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+            <i class="fas fa-compress-alt text-green-500 text-2xl mr-3"></i>
+            <h3 class="text-xl font-semibold text-gray-800">Compresser des PDF</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Réduisez la taille des fichiers PDF sans perte de qualité.</p>
+        <a href="{% url 'pdf_tools:compress_pdf' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+            Compresser
+        </a>
+    </div>
+</div>
+{% endblock %}

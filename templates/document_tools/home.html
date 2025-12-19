@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Outils Document{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Outils Document</h1>
+    <p class="text-gray-600">Transformez vos documents facilement avec nos outils gratuits</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+            <i class="fas fa-exchange-alt text-blue-500 text-2xl mr-3"></i>
+            <h3 class="text-xl font-semibold text-gray-800">Convertir des documents</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Convertissez entre Word, Excel, PDF et d'autres formats.</p>
+        <a href="{% url 'document_tools:convert_document' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+            Convertir
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+            <i class="fas fa-object-group text-green-500 text-2xl mr-3"></i>
+            <h3 class="text-xl font-semibold text-gray-800">Fusionner des documents</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Combinez plusieurs fichiers Word ou Excel en un seul document.</p>
+        <a href="{% url 'document_tools:merge_documents' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+            Fusionner
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+            <i class="fas fa-font text-purple-500 text-2xl mr-3"></i>
+            <h3 class="text-xl font-semibold text-gray-800">Extraire du texte</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Récupérez le texte d'un document scanné (OCR).</p>
+        <a href="{% url 'document_tools:extract_text' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
+            Extraire du texte
+        </a>
+    </div>
+</div>
+{% endblock %}
