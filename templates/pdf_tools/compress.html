@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Compresser un PDF{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="fade-in-element" style="opacity: 0;">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Compresser un PDF</h1>
+        <p class="text-gray-600 mb-8">Réduisez la taille de vos fichiers PDF sans perdre de qualité</p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main form section -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-6 fade-in-element" style="opacity: 0;">
+                <form method="post" enctype="multipart/form-data" class="space-y-6" id="compressForm">
+                    {% csrf_token %}
+                    
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors duration-300" id="dropZone">
+                        <i class="fas fa-file-pdf text-red-500 text-5xl mb-4"></i>
+                        <p class="text-gray-700 font-semibold mb-2">Glissez-déposez votre fichier PDF ici</p>
+                        <p class="text-gray-500 mb-4">ou</p>
+                        <label for="pdf_file" class="btn-hover inline-block bg-blue-600 text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-blue-700 transition-colors duration-300">
+                            <i class="fas fa-upload mr-2"></i>Choisir un fichier
+                        </label>
+                        <input type="file" id="pdf_file" name="pdf_file" accept=".pdf" class="hidden" required>
+                        <p class="text-sm text-gray-500 mt-4">Taille maximale: 100 MB</p>
+                    </div>
+                    
+                    <div id="fileInfo" class="hidden bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-pdf text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <span id="fileName" class="text-gray-700 font-medium block"></span>
+                                    <span id="fileSize" class="text-sm text-gray-500"></span>
+                                </div>
+                            </div>
+                            <button type="button" id="removeFile" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Niveau de compression</h3>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-300">
+                                <input type="radio" name="compression_level" value="low" class="mr-3">
+                                <div class="flex-grow">
+                                    <p class="font-medium text-gray-800">Faible compression</p>
+                                    <p class="text-sm text-gray-500">Qualité maximale, réduction ~10-20%</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Recommandé</span>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-300">
+                                <input type="radio" name="compression_level" value="medium" checked class="mr-3">
+                                <div class="flex-grow">
+                                    <p class="font-medium text-gray-800">Compression moyenne</p>
+                                    <p class="text-sm text-gray-500">Bon équilibre, réduction ~30-50%</p>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-300">
+                                <input type="radio" name="compression_level" value="high" class="mr-3">
+                                <div class="flex-grow">
+                                    <p class="font-medium text-gray-800">Compression élevée</p>
+                                    <p class="text-sm text-gray-500">Taille minimale, réduction ~60-80%</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-hover w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center">
+                        <i class="fas fa-compress mr-2"></i>
+                        Compresser le PDF
+                    </button>
+                </form>
+            </div>
+            
+            <div id="resultSection" class="hidden bg-white rounded-lg shadow-md p-6 mt-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Résultat de la compression</h3>
+                <div class="bg-green-50 rounded-lg p-4 mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-700">Taille originale:</span>
+                        <span id="originalSize" class="font-semibold text-gray-800"></span>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-700">Nouvelle taille:</span>
+                        <span id="compressedSize" class="font-semibold text-gray-800"></span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700">Réduction:</span>
+                        <span id="reduction" class="font-semibold text-green-600"></span>
+                    </div>
+                </div>
+                <button class="btn-hover w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors duration-300 flex items-center justify-center">
+                    <i class="fas fa-download mr-2"></i>
+                    Télécharger le PDF compressé
+                </button>
+            </div>
+        </div>
+        
+        <!-- Info sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-blue-50 rounded-lg p-6 fade-in-element" style="opacity: 0;">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                    Astuces
+                </h3>
+                <ul class="space-y-3 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1"></i>
+                        <span>Utilisez la compression faible pour les documents professionnels</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1"></i>
+                        <span>La compression moyenne convient à la plupart des usages</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1"></i>
+                        <span>La compression élevée est idéale pour l'envoi par email</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-purple-50 rounded-lg p-6 mt-6 fade-in-element" style="opacity: 0;">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-star text-purple-600 mr-2"></i>
+                    Avantages
+                </h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-purple-600 mr-2 mt-1"></i>
+                        <span>Réduction significative de la taille</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-purple-600 mr-2 mt-1"></i>
+                        <span>Préservation de la qualité visuelle</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-purple-600 mr-2 mt-1"></i>
+                        <span>Aucune limite de fichiers</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-purple-600 mr-2 mt-1"></i>
+                        <span>Traitement rapide et sécurisé</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('pdf_file');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.classList.remove('hidden');
+        }
+    });
+    
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+});
+</script>
+{% endblock %}

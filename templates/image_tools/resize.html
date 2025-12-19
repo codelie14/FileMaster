@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Redimensionner une image{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="fade-in-element" style="opacity: 0;">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Redimensionner une image</h1>
+        <p class="text-gray-600 mb-8">Modifiez les dimensions de votre image facilement</p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main form section -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-6 fade-in-element" style="opacity: 0;">
+                <form method="post" enctype="multipart/form-data" class="space-y-6" id="resizeForm">
+                    {% csrf_token %}
+                    
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors duration-300" id="dropZone">
+                        <i class="fas fa-expand-arrows-alt text-purple-500 text-5xl mb-4"></i>
+                        <p class="text-gray-700 font-semibold mb-2">Glissez-déposez votre image ici</p>
+                        <p class="text-gray-500 mb-4">ou</p>
+                        <label for="image_file" class="btn-hover inline-block bg-purple-600 text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-purple-700 transition-colors duration-300">
+                            <i class="fas fa-upload mr-2"></i>Choisir une image
+                        </label>
+                        <input type="file" id="image_file" name="image_file" accept="image/*" class="hidden" required>
+                    </div>
+                    
+                    <div id="imagePreview" class="hidden bg-gray-50 rounded-lg p-4">
+                        <div class="text-center mb-4">
+                            <img id="previewImg" src="" alt="Preview" class="max-w-full h-48 object-contain mx-auto rounded-lg">
+                        </div>
+                        <div class="text-center">
+                            <span id="fileName" class="text-gray-700 font-medium block"></span>
+                            <span id="originalDimensions" class="text-sm text-gray-500 block"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Méthode de redimensionnement</h3>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-300">
+                                <input type="radio" name="resize_mode" value="percentage" checked class="mr-3">
+                                <div>
+                                    <p class="font-medium text-gray-800">Par pourcentage</p>
+                                    <p class="text-sm text-gray-500">Réduire ou agrandir de X%</p>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-300">
+                                <input type="radio" name="resize_mode" value="dimensions" class="mr-3">
+                                <div>
+                                    <p class="font-medium text-gray-800">Dimensions exactes</p>
+                                    <p class="text-sm text-gray-500">Largeur et hauteur en pixels</p>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-300">
+                                <input type="radio" name="resize_mode" value="width" class="mr-3">
+                                <div>
+                                    <p class="font-medium text-gray-800">Par largeur</p>
+                                    <p class="text-sm text-gray-500">Hauteur ajustée automatiquement</p>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div id="percentageInput" class="mt-4">
+                            <label class="block text-gray-700 font-medium mb-2">Pourcentage (%)</label>
+                            <div class="flex items-center space-x-4">
+                                <input type="range" name="percentage" min="10" max="200" value="100" class="flex-grow" id="percentageSlider">
+                                <span id="percentageValue" class="font-semibold text-gray-800 min-w-16">100%</span>
+                            </div>
+                        </div>
+                        
+                        <div id="dimensionsInput" class="mt-4 hidden">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Largeur (px)</label>
+                                    <input type="number" name="width" min="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Hauteur (px)</label>
+                                    <input type="number" name="height" min="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                </div>
+                            </div>
+                            <label class="flex items-center mt-2 text-sm text-gray-700">
+                                <input type="checkbox" name="maintain_ratio" checked class="mr-2">
+                                Maintenir le ratio d'aspect
+                            </label>
+                        </div>
+                        
+                        <div id="widthInput" class="mt-4 hidden">
+                            <label class="block text-gray-700 font-medium mb-2">Largeur (px)</label>
+                            <input type="number" name="target_width" min="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-hover w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors duration-300 flex items-center justify-center">
+                        <i class="fas fa-expand-arrows-alt mr-2"></i>
+                        Redimensionner l'image
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Info sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-purple-50 rounded-lg p-6 fade-in-element" style="opacity: 0;">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                    Astuces
+                </h3>
+                <ul class="space-y-3 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-purple-600 mr-2 mt-1"></i>
+                        <span>Maintenez toujours le ratio pour éviter la déformation</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-purple-600 mr-2 mt-1"></i>
+                        <span>Utilisez le mode pourcentage pour un redimensionnement proportionnel</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-purple-600 mr-2 mt-1"></i>
+                        <span>Évitez d'agrandir trop une petite image</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-blue-50 rounded-lg p-6 mt-6 fade-in-element" style="opacity: 0;">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-ruler-combined text-blue-600 mr-2"></i>
+                    Dimensions courantes
+                </h3>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <button type="button" class="w-full text-left p-2 hover:bg-blue-100 rounded">
+                        <span class="font-semibold">HD</span> - 1920 × 1080
+                    </button>
+                    <button type="button" class="w-full text-left p-2 hover:bg-blue-100 rounded">
+                        <span class="font-semibold">Instagram</span> - 1080 × 1080
+                    </button>
+                    <button type="button" class="w-full text-left p-2 hover:bg-blue-100 rounded">
+                        <span class="font-semibold">Facebook</span> - 1200 × 630
+                    </button>
+                    <button type="button" class="w-full text-left p-2 hover:bg-blue-100 rounded">
+                        <span class="font-semibold">Twitter</span> - 1024 × 512
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('image_file');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const fileName = document.getElementById('fileName');
+    const originalDimensions = document.getElementById('originalDimensions');
+    const resizeModeRadios = document.querySelectorAll('input[name="resize_mode"]');
+    const percentageInput = document.getElementById('percentageInput');
+    const dimensionsInput = document.getElementById('dimensionsInput');
+    const widthInput = document.getElementById('widthInput');
+    const percentageSlider = document.getElementById('percentageSlider');
+    const percentageValue = document.getElementById('percentageValue');
+    
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                const img = new Image();
+                img.onload = function() {
+                    originalDimensions.textContent = `Dimensions originales: ${this.width} × ${this.height} px`;
+                };
+                img.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+            fileName.textContent = file.name;
+            imagePreview.classList.remove('hidden');
+        }
+    });
+    
+    resizeModeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            percentageInput.classList.add('hidden');
+            dimensionsInput.classList.add('hidden');
+            widthInput.classList.add('hidden');
+            
+            if (this.value === 'percentage') {
+                percentageInput.classList.remove('hidden');
+            } else if (this.value === 'dimensions') {
+                dimensionsInput.classList.remove('hidden');
+            } else if (this.value === 'width') {
+                widthInput.classList.remove('hidden');
+            }
+        });
+    });
+    
+    percentageSlider.addEventListener('input', function() {
+        percentageValue.textContent = this.value + '%';
+    });
+});
+</script>
+{% endblock %}

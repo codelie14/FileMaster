@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}FileMaster - Convertir une image{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="fade-in-element" style="opacity: 0;">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Convertir une image</h1>
+        <p class="text-gray-600 mb-8">Changez le format de votre image en quelques clics</p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main form section -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md p-6 fade-in-element" style="opacity: 0;">
+                <form method="post" enctype="multipart/form-data" class="space-y-6" id="convertForm">
+                    {% csrf_token %}
+                    
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors duration-300" id="dropZone">
+                        <i class="fas fa-image text-purple-500 text-5xl mb-4"></i>
+                        <p class="text-gray-700 font-semibold mb-2">Glissez-déposez votre image ici</p>
+                        <p class="text-gray-500 mb-4">ou</p>
+                        <label for="image_file" class="btn-hover inline-block bg-purple-600 text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-purple-700 transition-colors duration-300">
+                            <i class="fas fa-upload mr-2"></i>Choisir une image
+                        </label>
+                        <input type="file" id="image_file" name="image_file" accept="image/*" class="hidden" required>
+                        <p class="text-sm text-gray-500 mt-4">Formats supportés: JPG, PNG, GIF, BMP, WEBP, TIFF</p>
+                    </div>
+                    
+                    <div id="imagePreview" class="hidden bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <img id="previewImg" src="" alt="Preview" class="w-24 h-24 object-cover rounded-lg mr-4">
+                                <div>
+                                    <span id="fileName" class="text-gray-700 font-medium block"></span>
+                                    <span id="fileSize" class="text-sm text-gray-500 block"></span>
+                                    <span id="imageDimensions" class="text-sm text-gray-500 block"></span>
+                                </div>
+                            </div>
+                            <button type="button" id="removeFile" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Format de sortie</h3>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <label class="flex flex-col items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-purple-50 hover:border-purple-500 transition-all duration-300">
+                                <input type="radio" name="output_format" value="jpg" checked class="mb-2">
+                                <i class="fas fa-file-image text-3xl text-purple-600 mb-2"></i>
+                                <span class="font-medium text-gray-800">JPG</span>
+                                <span class="text-xs text-gray-500">Meilleure compression</span>
+                            </label>
+                            
+                            <label class="flex flex-col items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-purple-50 hover:border-purple-500 transition-all duration-300">
+                                <input type="radio" name="output_format" value="png" class="mb-2">
+                                <i class="fas fa-file-image text-3xl text-purple-600 mb-2"></i>
+                                <span class="font-medium text-gray-800">PNG</span>
+                                <span class="text-xs text-gray-500">Transparence</span>
+                            </label>
+                            
+                            <label class="flex flex-col items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-purple-50 hover:border-purple-500 transition-all duration-300">
+                                <input type="radio" name="output_format" value="webp" class="mb-2">
+                                <i class="fas fa-file-image text-3xl text-purple-600 mb-2"></i>
+                                <span class="font-medium text-gray-800">WEBP</span>
+                                <span class="text-xs text-gray-500">Moderne</span>
+                            </label>
+                            
+                            <label class="flex flex-col items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-purple-50 hover:border-purple-500 transition-all duration-300">
+                                <input type="radio" name="output_format" value="gif" class="mb-2">
+                                <i class="fas fa-file-image text-3xl text-purple-600 mb-2"></i>
+                                <span class="font-medium text-gray-800">GIF</span>
+                                <span class="text-xs text-gray-500">Animation</span>
+                            </label>
+                            
+                            <label class="flex flex-col items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-purple-50 hover:border-purple-500 transition-all duration-300">
+                                <input type="radio" name="output_format" value="bmp" class="mb-2">
+                                <i class="fas fa-file-image text-3xl text-purple-600 mb-2"></i>
+                                <span class="font-medium text-gray-800">BMP</span>
+                                <span class="text-xs text-gray-500">Sans perte</span>
+                            </label>
+                            
+                            <label class="flex flex-col items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-purple-50 hover:border-purple-500 transition-all duration-300">
+                                <input type="radio" name="output_format" value="tiff" class="mb-2">
+                                <i class="fas fa-file-image text-3xl text-purple-600 mb-2"></i>
+                                <span class="font-medium text-gray-800">TIFF</span>
+                                <span class="text-xs text-gray-500">Professionnel</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-cog text-blue-600 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Options avancées</h4>
+                                <div class="mt-2">
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="preserve_quality" checked class="mr-2">
+                                        Préserver la qualité maximale
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-hover w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors duration-300 flex items-center justify-center">
+                        <i class="fas fa-exchange-alt mr-2"></i>
+                        Convertir l'image
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Info sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-purple-50 rounded-lg p-6 fade-in-element" style="opacity: 0;">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-info-circle text-purple-600 mr-2"></i>
+                    Formats recommandés
+                </h3>
+                <div class="space-y-3 text-sm text-gray-700">
+                    <div>
+                        <p class="font-semibold">JPG</p>
+                        <p class="text-gray-600">Idéal pour les photos</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">PNG</p>
+                        <p class="text-gray-600">Pour logos et graphiques</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">WEBP</p>
+                        <p class="text-gray-600">Format web moderne</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-6 mt-6 fade-in-element" style="opacity: 0;">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-shield-alt text-green-600 mr-2"></i>
+                    Sécurité & Confidentialité
+                </h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                        <span>Suppression automatique après 1 heure</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                        <span>Aucun accès tiers</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                        <span>Traitement local sécurisé</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('image_file');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const imageDimensions = document.getElementById('imageDimensions');
+    
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                const img = new Image();
+                img.onload = function() {
+                    imageDimensions.textContent = `${this.width} × ${this.height} px`;
+                };
+                img.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            imagePreview.classList.remove('hidden');
+        }
+    });
+    
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+});
+</script>
+{% endblock %}
