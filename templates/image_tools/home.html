@@ -3,43 +3,145 @@
 {% block title %}FileMaster - Outils Image{% endblock %}
 
 {% block content %}
-<div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-2">Outils Image</h1>
-    <p class="text-gray-600">Transformez vos images facilement avec nos outils gratuits</p>
+<!-- Header -->
+<div class="mb-8 fade-in-element" style="opacity: 0;">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-image text-green-500 mr-3"></i>
+        Outils Image
+    </h1>
+    <p class="text-gray-600 max-w-3xl">Transformez vos images facilement avec nos outils gratuits. Convertissez, redimensionnez, compressez, recadrez et ajoutez des filigranes à vos images sans installer de logiciel.</p>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-bolt text-green-500"></i>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gray-800">100%</div>
+                <div class="text-gray-600">Rapide & Gratuit</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-shield-alt text-blue-500"></i>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gray-800">Sécurisé</div>
+                <div class="text-gray-600">Fichiers supprimés</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-file-image text-purple-500"></i>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gray-800">100Mo</div>
+                <div class="text-gray-600">Taille max</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tools Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
         <div class="flex items-center mb-4">
-            <i class="fas fa-exchange-alt text-purple-500 text-2xl mr-3"></i>
+            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-exchange-alt text-purple-500"></i>
+            </div>
             <h3 class="text-xl font-semibold text-gray-800">Convertir des images</h3>
         </div>
-        <p class="text-gray-600 mb-4">Changez le format de vos images (JPG, PNG, WEBP, GIF, etc.).</p>
-        <a href="{% url 'image_tools:convert_image' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-            Convertir
+        <p class="text-gray-600 mb-4">Changez le format de vos images (JPG, PNG, WEBP, GIF, etc.) avec une qualité préservée.</p>
+        <a href="{% url 'image_tools:convert_image' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+            <i class="fas fa-arrow-right mr-2"></i>Convertir
         </a>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
         <div class="flex items-center mb-4">
-            <i class="fas fa-expand-arrows-alt text-yellow-500 text-2xl mr-3"></i>
+            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-expand-arrows-alt text-yellow-500"></i>
+            </div>
             <h3 class="text-xl font-semibold text-gray-800">Redimensionner des images</h3>
         </div>
-        <p class="text-gray-600 mb-4">Modifiez la taille ou la résolution de vos images.</p>
-        <a href="{% url 'image_tools:resize_image' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-            Redimensionner
+        <p class="text-gray-600 mb-4">Modifiez la taille ou la résolution de vos images pour les adapter à vos besoins.</p>
+        <a href="{% url 'image_tools:resize_image' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+            <i class="fas fa-arrow-right mr-2"></i>Redimensionner
         </a>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
         <div class="flex items-center mb-4">
-            <i class="fas fa-compress-alt text-green-500 text-2xl mr-3"></i>
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-compress-alt text-green-500"></i>
+            </div>
             <h3 class="text-xl font-semibold text-gray-800">Compresser des images</h3>
         </div>
-        <p class="text-gray-600 mb-4">Réduisez la taille de vos images sans perte de qualité.</p>
-        <a href="{% url 'image_tools:compress_image' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-            Compresser
+        <p class="text-gray-600 mb-4">Réduisez la taille de vos images sans perte de qualité significative.</p>
+        <a href="{% url 'image_tools:compress_image' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+            <i class="fas fa-arrow-right mr-2"></i>Compresser
         </a>
     </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-crop-alt text-red-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Recadrer des images</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Recadrez vos images pour mettre en valeur le sujet principal ou ajuster les proportions.</p>
+        <a href="#" class="inline-block bg-gray-400 text-white font-medium py-2 px-4 rounded cursor-not-allowed">
+            <i class="fas fa-clock mr-2"></i>Bientôt disponible
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-font text-blue-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Ajouter du texte</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Ajoutez du texte personnalisé à vos images pour créer des graphismes uniques.</p>
+        <a href="#" class="inline-block bg-gray-400 text-white font-medium py-2 px-4 rounded cursor-not-allowed">
+            <i class="fas fa-clock mr-2"></i>Bientôt disponible
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-water text-indigo-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Ajouter un filigrane</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Protégez vos images en y ajoutant un filigrane personnalisé (texte ou image).</p>
+        <a href="#" class="inline-block bg-gray-400 text-white font-medium py-2 px-4 rounded cursor-not-allowed">
+            <i class="fas fa-clock mr-2"></i>Bientôt disponible
+        </a>
+    </div>
+</div>
+
+<!-- Tips Section -->
+<div class="bg-green-50 rounded-lg p-6 mb-8 fade-in-element" style="opacity: 0;">
+    <h3 class="font-semibold text-green-800 mb-3 flex items-center">
+        <i class="fas fa-lightbulb mr-2"></i>Conseils pour utiliser les outils Image
+    </h3>
+    <ul class="list-disc list-inside text-green-700 space-y-1">
+        <li>Utilisez le format WebP pour des images de meilleure qualité avec une taille réduite</li>
+        <li>La taille maximale autorisée par image est de 100 Mo</li>
+        <li>Vos images sont automatiquement supprimées de nos serveurs après 24 heures</li>
+        <li>Pour de meilleurs résultats, utilisez des images de haute résolution</li>
+    </ul>
 </div>
 {% endblock %}

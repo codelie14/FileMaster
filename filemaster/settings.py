@@ -88,26 +88,18 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+## =============================================
+# CONFIGURATION DES FICHIERS STATIQUES ET MÉDIAS (à remplacer dans settings.py)
 # =============================================
-# CONFIGURATION DES FICHIERS STATIQUES ET MÉDIAS
-# =============================================
-
-# URL publique pour les fichiers statiques
 STATIC_URL = '/static/'
-
-# Dossiers où Django cherche les fichiers statiques en développement
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # Dossier pour tes fichiers statiques personnalisés
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Dossier de destination pour collectstatic
 
-# Dossier où collectstatic copie les fichiers pour la production
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# URL publique pour les fichiers uploadés
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # Dossier pour les fichiers uploadés
 
-# Dossier où sont stockés les fichiers uploadés
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # =============================================
 # AUTRES PARAMÈTRES

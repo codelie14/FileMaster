@@ -142,3 +142,4 @@ Thumbs.db
 
 # Media files (these will be uploaded by users)
 /media/
+staticfiles/

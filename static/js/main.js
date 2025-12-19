@@ -1,4 +1,4 @@
-// Show loading overlay on form submit
+// Show loading overlay on form submit and page navigation
 document.addEventListener('DOMContentLoaded', function() {
     // Handle form submissions with loading overlay
     const forms = document.querySelectorAll('form');
@@ -68,5 +68,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+    });
+    
+    // Add loading overlay to all links for smooth page transitions
+    const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="javascript:"])');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Don't show loader for anchor links or external links
+            const url = this.getAttribute('href');
+            const isExternal = url.startsWith('http') && !url.includes(window.location.hostname);
+            
+            if (!isExternal && !url.startsWith('#')) {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                if (loadingOverlay) {
+                    loadingOverlay.classList.remove('hidden');
+                }
+            }
+        });
+    });
+    
+    // Button hover effects
+    const buttons = document.querySelectorAll('button, .btn-hover');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.classList.add('scale-105');
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.classList.remove('scale-105');
+        });
     });
 });

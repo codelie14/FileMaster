@@ -3,54 +3,184 @@
 {% block title %}FileMaster - Accueil{% endblock %}
 
 {% block content %}
-<div class="text-center mb-10">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Bienvenue sur FileMaster</h1>
-    <p class="text-xl text-gray-600">Votre solution tout-en-un pour la manipulation de fichiers</p>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-        <div class="text-center mb-4">
-            <i class="fas fa-file-pdf text-red-500 text-4xl mb-3"></i>
-            <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils PDF</h5>
-            <p class="text-gray-600 mb-4">Fusionner, diviser, compresser, convertir, protéger et modifier des fichiers PDF.</p>
-            <a href="{% url 'pdf_tools:pdf_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-                Accéder aux outils PDF
-            </a>
-        </div>
-    </div>
-    
-    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-        <div class="text-center mb-4">
-            <i class="fas fa-image text-green-500 text-4xl mb-3"></i>
-            <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils Image</h5>
-            <p class="text-gray-600 mb-4">Convertir, redimensionner, compresser, recadrer et ajouter des filigranes aux images.</p>
-            <a href="{% url 'image_tools:image_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-                Accéder aux outils Image
-            </a>
-        </div>
-    </div>
-    
-    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-        <div class="text-center mb-4">
-            <i class="fas fa-file-word text-blue-500 text-4xl mb-3"></i>
-            <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils Document</h5>
-            <p class="text-gray-600 mb-4">Convertir, fusionner et extraire du texte de documents Word, Excel et autres.</p>
-            <a href="{% url 'document_tools:document_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-                Accéder aux outils Document
-            </a>
-        </div>
+<!-- Hero Section -->
+<div class="text-center mb-16 fade-in-element" style="opacity: 0;">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Bienvenue sur <span class="text-blue-600">FileMaster</span></h1>
+    <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">Votre solution tout-en-un pour la manipulation de fichiers PDF, images et documents sans installation requise</p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#features" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 btn-hover shadow-lg">
+            <i class="fas fa-rocket mr-2"></i>Découvrir les fonctionnalités
+        </a>
+        <a href="{% url 'pdf_tools:pdf_home' %}" class="inline-block bg-white hover:bg-gray-100 text-blue-600 border border-blue-600 font-medium py-3 px-6 rounded-lg transition-colors duration-300 btn-hover shadow">
+            <i class="fas fa-file-pdf mr-2"></i>Commencer avec les PDF
+        </a>
     </div>
 </div>
 
-<div class="bg-white rounded-lg shadow-lg p-6">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Comment ça marche</h2>
-    <ol class="list-decimal list-inside space-y-2 text-gray-600">
-        <li>Sélectionnez l'outil que vous souhaitez utiliser</li>
-        <li>Téléchargez vos fichiers</li>
-        <li>Configurez les options si nécessaire</li>
-        <li>Traitez vos fichiers</li>
-        <li>Téléchargez les résultats</li>
-    </ol>
+<!-- Stats Section -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-3xl font-bold text-blue-600 mb-2">50+</div>
+        <div class="text-gray-600">Outils disponibles</div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-3xl font-bold text-green-500 mb-2">10K+</div>
+        <div class="text-gray-600">Fichiers traités</div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-3xl font-bold text-purple-500 mb-2">100Mo</div>
+        <div class="text-gray-600">Taille max par fichier</div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-3xl font-bold text-red-500 mb-2">100%</div>
+        <div class="text-gray-600">Gratuit & sécurisé</div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div id="features" class="mb-16">
+    <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Nos fonctionnalités <span class="text-blue-600">principales</span></h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white rounded-lg shadow-lg p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+            <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-file-pdf text-red-500 text-2xl"></i>
+                </div>
+                <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils PDF</h5>
+                <p class="text-gray-600 mb-4">Fusionner, diviser, compresser, convertir, protéger et modifier des fichiers PDF.</p>
+                <a href="{% url 'pdf_tools:pdf_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+                    Accéder aux outils PDF
+                </a>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+            <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-image text-green-500 text-2xl"></i>
+                </div>
+                <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils Image</h5>
+                <p class="text-gray-600 mb-4">Convertir, redimensionner, compresser, recadrer et ajouter des filigranes aux images.</p>
+                <a href="{% url 'image_tools:image_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+                    Accéder aux outils Image
+                </a>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+            <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-file-word text-blue-500 text-2xl"></i>
+                </div>
+                <h5 class="text-2xl font-semibold text-gray-800 mb-2">Outils Document</h5>
+                <p class="text-gray-600 mb-4">Convertir, fusionner et extraire du texte de documents Word, Excel et autres.</p>
+                <a href="{% url 'document_tools:document_home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+                    Accéder aux outils Document
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="bg-white rounded-lg shadow-lg p-6 mb-16 fade-in-element" style="opacity: 0;">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Comment ça marche</h2>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div class="text-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-blue-600 font-bold">1</span>
+            </div>
+            <h3 class="font-medium text-gray-800 mb-2">Choisissez</h3>
+            <p class="text-gray-600 text-sm">Sélectionnez l'outil</p>
+        </div>
+        <div class="flex items-center justify-center text-gray-300 hidden md:block">
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="text-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-blue-600 font-bold">2</span>
+            </div>
+            <h3 class="font-medium text-gray-800 mb-2">Téléchargez</h3>
+            <p class="text-gray-600 text-sm">Vos fichiers</p>
+        </div>
+        <div class="flex items-center justify-center text-gray-300 hidden md:block">
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="text-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-blue-600 font-bold">3</span>
+            </div>
+            <h3 class="font-medium text-gray-800 mb-2">Téléchargez</h3>
+            <p class="text-gray-600 text-sm">Le résultat</p>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="mb-16">
+    <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Ce que disent nos <span class="text-blue-600">utilisateurs</span></h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-user text-blue-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800">Marie Dubois</h4>
+                    <p class="text-gray-600 text-sm">Étudiante</p>
+                </div>
+            </div>
+            <p class="text-gray-600 italic">"FileMaster m'a permis de fusionner rapidement mes PDF de cours. C'est vraiment pratique et gratuit !"</p>
+            <div class="flex text-yellow-400 mt-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-user text-green-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800">Jean Martin</h4>
+                    <p class="text-gray-600 text-sm">Photographe</p>
+                </div>
+            </div>
+            <p class="text-gray-600 italic">"L'outil de compression d'images est excellent. Je réduis la taille de mes photos sans perte de qualité."</p>
+            <div class="flex text-yellow-400 mt-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-user text-purple-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800">Sophie Lambert</h4>
+                    <p class="text-gray-600 text-sm">Chef d'entreprise</p>
+                </div>
+            </div>
+            <p class="text-gray-600 italic">"Je recommande FileMaster à mes collègues. Cela nous fait gagner beaucoup de temps dans le traitement des documents."</p>
+            <div class="flex text-yellow-400 mt-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

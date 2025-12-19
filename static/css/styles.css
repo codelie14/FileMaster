@@ -57,7 +57,7 @@
 }
 
 /* Button hover */
-.btn-hover:hover {
+.btn-hover:hover, button:hover {
     transform: scale(1.05);
     transition: all 0.3s ease;
 }
@@ -84,4 +84,9 @@
 
 .hidden {
     display: none;
+}
+
+/* Smooth transitions */
+a {
+    transition: all 0.3s ease;
 }

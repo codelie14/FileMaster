@@ -3,43 +3,145 @@
 {% block title %}FileMaster - Outils PDF{% endblock %}
 
 {% block content %}
-<div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-2">Outils PDF</h1>
-    <p class="text-gray-600">Manipulez vos fichiers PDF facilement avec nos outils gratuits</p>
+<!-- Header -->
+<div class="mb-8 fade-in-element" style="opacity: 0;">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-file-pdf text-red-500 mr-3"></i>
+        Outils PDF
+    </h1>
+    <p class="text-gray-600 max-w-3xl">Manipulez vos fichiers PDF facilement avec nos outils gratuits. Fusionnez, divisez, compressez, convertissez et protégez vos documents PDF sans installer de logiciel.</p>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-bolt text-red-500"></i>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gray-800">100%</div>
+                <div class="text-gray-600">Rapide & Gratuit</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-shield-alt text-green-500"></i>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gray-800">Sécurisé</div>
+                <div class="text-gray-600">Fichiers supprimés</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-file-alt text-blue-500"></i>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gray-800">100Mo</div>
+                <div class="text-gray-600">Taille max</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tools Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
         <div class="flex items-center mb-4">
-            <i class="fas fa-object-group text-blue-500 text-2xl mr-3"></i>
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-object-group text-blue-500"></i>
+            </div>
             <h3 class="text-xl font-semibold text-gray-800">Fusionner des PDF</h3>
         </div>
-        <p class="text-gray-600 mb-4">Combinez plusieurs fichiers PDF en un seul document.</p>
-        <a href="{% url 'pdf_tools:merge_pdfs' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-            Fusionner
+        <p class="text-gray-600 mb-4">Combinez plusieurs fichiers PDF en un seul document dans l'ordre de votre choix.</p>
+        <a href="{% url 'pdf_tools:merge_pdfs' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+            <i class="fas fa-arrow-right mr-2"></i>Fusionner
         </a>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
         <div class="flex items-center mb-4">
-            <i class="fas fa-cut text-red-500 text-2xl mr-3"></i>
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-cut text-red-500"></i>
+            </div>
             <h3 class="text-xl font-semibold text-gray-800">Diviser des PDF</h3>
         </div>
         <p class="text-gray-600 mb-4">Extrayez des pages spécifiques ou divisez un PDF en plusieurs fichiers.</p>
-        <a href="{% url 'pdf_tools:split_pdf' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-            Diviser
+        <a href="{% url 'pdf_tools:split_pdf' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+            <i class="fas fa-arrow-right mr-2"></i>Diviser
         </a>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
         <div class="flex items-center mb-4">
-            <i class="fas fa-compress-alt text-green-500 text-2xl mr-3"></i>
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-compress-alt text-green-500"></i>
+            </div>
             <h3 class="text-xl font-semibold text-gray-800">Compresser des PDF</h3>
         </div>
-        <p class="text-gray-600 mb-4">Réduisez la taille des fichiers PDF sans perte de qualité.</p>
-        <a href="{% url 'pdf_tools:compress_pdf' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300">
-            Compresser
+        <p class="text-gray-600 mb-4">Réduisez la taille des fichiers PDF sans perte de qualité significative.</p>
+        <a href="{% url 'pdf_tools:compress_pdf' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-300 btn-hover">
+            <i class="fas fa-arrow-right mr-2"></i>Compresser
         </a>
     </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-lock text-purple-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Protéger des PDF</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Ajoutez un mot de passe ou chiffrez vos documents PDF pour les sécuriser.</p>
+        <a href="#" class="inline-block bg-gray-400 text-white font-medium py-2 px-4 rounded cursor-not-allowed">
+            <i class="fas fa-clock mr-2"></i>Bientôt disponible
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-sync text-yellow-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Convertir des PDF</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Convertissez vos PDF en Word, Excel, PowerPoint, JPG, PNG et autres formats.</p>
+        <a href="#" class="inline-block bg-gray-400 text-white font-medium py-2 px-4 rounded cursor-not-allowed">
+            <i class="fas fa-clock mr-2"></i>Bientôt disponible
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6 card-hover transition-all duration-300 fade-in-element" style="opacity: 0;">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-edit text-indigo-500"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Modifier des PDF</h3>
+        </div>
+        <p class="text-gray-600 mb-4">Ajoutez du texte, des images, des annotations ou des filigranes à vos PDF.</p>
+        <a href="#" class="inline-block bg-gray-400 text-white font-medium py-2 px-4 rounded cursor-not-allowed">
+            <i class="fas fa-clock mr-2"></i>Bientôt disponible
+        </a>
+    </div>
+</div>
+
+<!-- Tips Section -->
+<div class="bg-blue-50 rounded-lg p-6 mb-8 fade-in-element" style="opacity: 0;">
+    <h3 class="font-semibold text-blue-800 mb-3 flex items-center">
+        <i class="fas fa-lightbulb mr-2"></i>Conseils pour utiliser les outils PDF
+    </h3>
+    <ul class="list-disc list-inside text-blue-700 space-y-1">
+        <li>Assurez-vous que vos fichiers PDF ne sont pas protégés par un mot de passe pour certaines opérations</li>
+        <li>La taille maximale autorisée par fichier est de 100 Mo</li>
+        <li>Vos fichiers sont automatiquement supprimés de nos serveurs après 24 heures</li>
+        <li>Pour de meilleurs résultats, utilisez des fichiers PDF de bonne qualité</li>
+    </ul>
 </div>
 {% endblock %}
